@@ -55,7 +55,7 @@ if (!defined('ABSPATH')) {
     <form class="wt_iew_import_method_import_form">
         <table class="form-table wt-iew-form-table">
             <?php
-            Wt_Import_Export_For_Woo_Basic_Common_Helper::field_generator($method_import_screen_fields, $method_import_form_data);
+            Wt_Import_Export_For_Woo_User_Basic_Common_Helper::field_generator($method_import_screen_fields, $method_import_form_data);
             ?>
         </table>
 		<div class="wt_iew_suite_banner">

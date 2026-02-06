@@ -41,7 +41,7 @@ $columns['is_guest_user'] = 'is_guest_user';
 if (!function_exists( 'is_plugin_active' ) )
      require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
 
-if( is_plugin_active( 'woocommerce/woocommerce.php' ) ):
+if ( class_exists( 'WooCommerce' ) ):
     
     $columns['orders'] = 'orders';    
     $columns['billing_first_name'] = 'billing_first_name';

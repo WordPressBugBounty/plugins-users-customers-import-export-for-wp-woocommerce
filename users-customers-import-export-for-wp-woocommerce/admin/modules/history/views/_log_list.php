@@ -86,7 +86,7 @@ if(isset($_GET['wt_iew_delete_log'])) // @codingStandardsIgnoreLine
 	{
 		?>
 		<h4 class="wt_iew_history_no_records"><?php esc_html_e( "No logs found.", 'users-customers-import-export-for-wp-woocommerce' ); ?>
-			<?php if ( Wt_Import_Export_For_Woo_Basic_Common_Helper::get_advanced_settings( 'enable_import_log' ) == 0 ): ?>		
+			<?php if ( Wt_Import_Export_For_Woo_User_Basic_Common_Helper::get_advanced_settings( 'enable_import_log' ) == 0 ): ?>		
 				<span> <?php esc_html_e( 'Please enable import log under', 'users-customers-import-export-for-wp-woocommerce' ); ?> <a target="_blank" href="<?php echo esc_url(admin_url( 'admin.php?page=wt_import_export_for_woo_basic' ));?>"><?php esc_html_e( 'settings', 'users-customers-import-export-for-wp-woocommerce' ); ?></a></span>		
 			<?php endif; ?>
 		</h4>

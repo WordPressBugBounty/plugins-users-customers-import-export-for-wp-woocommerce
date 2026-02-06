@@ -26,8 +26,8 @@
  * @subpackage Wt_Import_Export_For_Woo/includes
  * @author     Webtoffee <info@webtoffee.com>
  */
-if(!class_exists('Wt_Import_Export_For_Woo_Basic')){
-class Wt_Import_Export_For_Woo_Basic {
+if(!class_exists('Wt_Import_Export_For_Woo_User_Basic')){
+class Wt_Import_Export_For_Woo_User_Basic {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -80,7 +80,7 @@ class Wt_Import_Export_For_Woo_Basic {
 		if ( defined( 'WT_U_IEW_VERSION' ) ) {
 			$this->version = WT_U_IEW_VERSION;
 		} else {
-			$this->version = '2.6.6';
+			$this->version = '2.7.0';
 		}
 		$this->plugin_name = 'wt-import-export-for-woo-basic';
 
@@ -156,7 +156,12 @@ class Wt_Import_Export_For_Woo_Basic {
 		/**
 		 * Class includes helper functions for bfcm banner
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/banner/class-wtier-bfcm-twenty-twenty-four.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/banner/class-wt-bfcm-twenty-twenty-five.php';
+
+		/**
+		 * Includes the EMA banner for analytics page
+		 */
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/banner/class-wbte-ema-banner.php';
 	
 		/**
 		 * Includes cross promotion banner main class file.
@@ -180,7 +185,7 @@ class Wt_Import_Export_For_Woo_Basic {
 		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-wt-non-apache-info.php';
 
 		$this->loader = new Wt_Import_Export_For_Woo_Loader_Basic();
-		$this->plugin_admin = new Wt_Import_Export_For_Woo_Admin_Basic( $this->get_plugin_name(), $this->get_version() );
+		$this->plugin_admin = new Wt_Import_Export_For_Woo_User_Admin_Basic( $this->get_plugin_name(), $this->get_version() );
 		$this->plugin_public = new Wt_Import_Export_For_Woo_Public_Basic( $this->get_plugin_name(), $this->get_version() );
 	}
 
@@ -228,6 +233,13 @@ class Wt_Import_Export_For_Woo_Basic {
 		$this->loader->add_action( 'admin_enqueue_scripts', $this->plugin_admin, 'enqueue_scripts' );
 		
 		$this->loader->add_action( 'export_filters', $this->plugin_admin, 'tools_wtexport_text' );
+
+		/**
+		 *  Set screens to show promotional banner
+		 *
+		 *  @since 2.6.7
+		 */
+		$this->loader->add_filter( 'wt_bfcm_banner_screens', $this->plugin_admin, 'wt_bfcm_banner_screens' );
 
 	}
 
@@ -299,11 +311,11 @@ class Wt_Import_Export_For_Woo_Basic {
 	public static function load_modules($module)
 	{
 
-		if(Wt_Import_Export_For_Woo_Admin_Basic::module_exists($module))
+		if(Wt_Import_Export_For_Woo_User_Admin_Basic::module_exists($module))
 		{ 
 			if(!isset(self::$loaded_modules[$module]))
 			{
-				$module_class='Wt_Import_Export_For_Woo_Basic_'.ucfirst($module);
+				$module_class='Wt_Import_Export_For_Woo_User_Basic_'.ucfirst($module);
 				self::$loaded_modules[$module]=new $module_class;
 			}
 			return self::$loaded_modules[$module];
@@ -354,19 +366,15 @@ class Wt_Import_Export_For_Woo_Basic {
      * @since 2.5.8
      */
     public static function is_bfcm_season() {
-        $start_date = new DateTime( '25-NOV-2024, 12:00 AM', new DateTimeZone( 'Asia/Kolkata' ) ); // Start date.
-        $current_date = new DateTime( 'now', new DateTimeZone( 'Asia/Kolkata' ) ); // Current date.
-        $end_date = new DateTime( '02-DEC-2024, 11:59 PM', new DateTimeZone( 'Asia/Kolkata' ) ); // End date.
+		$start_date   = new DateTime( '17-NOV-2025, 12:00 AM', new DateTimeZone( 'Asia/Kolkata' ) ); // Start date.
+		$current_date = new DateTime( 'now', new DateTimeZone( 'Asia/Kolkata' ) ); // Current date.
+		$end_date     = new DateTime( '04-DEC-2025, 11:59 PM', new DateTimeZone( 'Asia/Kolkata' ) ); // End date.
 
-        /**
-         * check if the date is on or between the start and end date of black friday and cyber monday banner for 2024.
-         */
-        if ( $current_date < $start_date  || $current_date >= $end_date) {
-            return false;
-        }
-        return true;
+		// Check if the date is on or between the start and end date of black friday and cyber monday banner for 2025.
+		if ( $current_date < $start_date || $current_date > $end_date ) {
+			return false;
+		}
+		return true;
     }
-
-
 }
 }

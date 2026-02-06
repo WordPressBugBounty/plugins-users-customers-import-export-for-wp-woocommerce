@@ -10,10 +10,10 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-if(!class_exists('Wt_Import_Export_For_Woo_basic_User')){
+if(!class_exists('Wt_Import_Export_For_Woo_User_Basic_User')){
     
 #[AllowDynamicProperties]
-class Wt_Import_Export_For_Woo_basic_User {
+class Wt_Import_Export_For_Woo_User_Basic_User {
 
     public $module_id = '';
     public static $module_id_static = '';
@@ -31,13 +31,13 @@ class Wt_Import_Export_For_Woo_basic_User {
         /**
         *   Checking the minimum required version of `Import export plugin` plugin available
         */
-        if(!Wt_Import_Export_For_Woo_Basic_Common_Helper::check_base_version($this->module_base, $this->module_name, $this->min_base_version))
+        if(!Wt_Import_Export_For_Woo_User_Basic_Common_Helper::check_base_version($this->module_base, $this->module_name, $this->min_base_version))
         {
             return;
         }
 
 
-        $this->module_id = Wt_Import_Export_For_Woo_Basic::get_module_id($this->module_base);
+        $this->module_id = Wt_Import_Export_For_Woo_User_Basic::get_module_id($this->module_base);
         
         self::$module_id_static = $this->module_id;
         
@@ -143,7 +143,7 @@ class Wt_Import_Export_For_Woo_basic_User {
         }
         
         include plugin_dir_path(__FILE__) . 'import/import.php';
-        $import = new Wt_Import_Export_For_Woo_basic_User_Import($this);
+        $import = new Wt_Import_Export_For_Woo_User_Basic_User_Import($this);
         
         $response = $import->prepare_data_to_import($import_data,$form_data, $batch_offset, $is_last_batch);
          
@@ -174,7 +174,7 @@ class Wt_Import_Export_For_Woo_basic_User {
         }
         
         include plugin_dir_path(__FILE__) . 'export/export.php';
-        $export = new Wt_Import_Export_For_Woo_basic_User_Export($this);
+        $export = new Wt_Import_Export_For_Woo_User_Basic_User_Export($this);
 
         $header_row = $export->prepare_header();
 
@@ -542,7 +542,7 @@ class Wt_Import_Export_For_Woo_basic_User {
 			'css_class' => 'wc-enhanced-select wt-user-search',
             'validation_rule' => array('type'=>'text_arr')
         );        
-        if(is_plugin_active('woocommerce/woocommerce.php'))
+        if ( class_exists( 'WooCommerce' ) )
         {
             $fields['email']['help_text']=__('Input the customer name or email to specify the customers.', 'users-customers-import-export-for-wp-woocommerce');
             $fields['email']['css_class']='wc-customer-search';
@@ -709,4 +709,4 @@ class Wt_Import_Export_For_Woo_basic_User {
 }
 }
 
-new Wt_Import_Export_For_Woo_basic_User();
+new Wt_Import_Export_For_Woo_User_Basic_User();

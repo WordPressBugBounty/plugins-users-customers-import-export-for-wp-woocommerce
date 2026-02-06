@@ -23,9 +23,9 @@ if ( ! class_exists( 'Wt_Non_Apache_Info' ) ) {
 
 			if ( ! $this->wt_get_display_server_info() ) {
 				if ( 
-				    class_exists( 'Wt_Import_Export_For_Woo_Basic_Common_Helper' ) 
-				    && method_exists( 'Wt_Import_Export_For_Woo_Basic_Common_Helper', 'wt_is_screen_allowed' ) 
-				    && Wt_Import_Export_For_Woo_Basic_Common_Helper::wt_is_screen_allowed() 
+				    class_exists( 'Wt_Import_Export_For_Woo_User_Basic_Common_Helper' ) 
+				    && method_exists( 'Wt_Import_Export_For_Woo_User_Basic_Common_Helper', 'wt_is_screen_allowed' ) 
+				    && Wt_Import_Export_For_Woo_User_Basic_Common_Helper::wt_is_screen_allowed() 
 				) {
 					$this->banner_css_class = 'wt_' . $this->plugin . '_show_server_info';
 					add_action( 'admin_notices', array( $this, 'show_banner' ) );

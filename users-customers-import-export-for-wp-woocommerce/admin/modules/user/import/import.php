@@ -6,8 +6,8 @@ if (!defined('WPINC')) {
 
 use Automattic\WooCommerce\Admin\ReportsSync;
 
-if(!class_exists('Wt_Import_Export_For_Woo_basic_User_Import')){
-class Wt_Import_Export_For_Woo_basic_User_Import {
+if(!class_exists('Wt_Import_Export_For_Woo_User_Basic_User_Import')){
+class Wt_Import_Export_For_Woo_User_Basic_User_Import {
 
     public $parent_module = null;
     public $parsed_data = array();
@@ -79,7 +79,7 @@ class Wt_Import_Export_For_Woo_basic_User_Import {
                     if($this->is_user_exist){
                         $msg = 'User updated successfully.';
                     }
-                    $this->import_results[$row] = array('row'=>$row, 'message'=>$msg, 'status'=>true, 'status_msg' => __( 'Success', 'users-customers-import-export-for-wp-woocommerce' ), 'post_id'=>$result['id'], 'post_link' => Wt_Import_Export_For_Woo_basic_User::get_item_link_by_id($result['id'])); 
+                    $this->import_results[$row] = array('row'=>$row, 'message'=>$msg, 'status'=>true, 'status_msg' => __( 'Success', 'users-customers-import-export-for-wp-woocommerce' ), 'post_id'=>$result['id'], 'post_link' => Wt_Import_Export_For_Woo_User_Basic_User::get_item_link_by_id($result['id'])); 
                     Wt_Import_Export_For_Woo_Basic_Logwriter::write_log($this->parent_module->module_base, 'import', "Row :$row - ".$msg);
                     $success++;                     
                 }else{
@@ -112,7 +112,7 @@ class Wt_Import_Export_For_Woo_basic_User_Import {
 			* @param bool     $skip_existing Skip existing records.
 			* @return string
 			*/
-			if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && class_exists( "Automattic\WooCommerce\Admin\ReportsSync" ) ) {
+			if ( class_exists( 'WooCommerce' ) && class_exists( "Automattic\WooCommerce\Admin\ReportsSync" ) ) {
 				$days = false; // Initiate now.
 				$skip_existing = 1;
 				ReportsSync::regenerate_report_data( $days, $skip_existing );

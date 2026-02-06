@@ -22,7 +22,7 @@ $wf_img_path=WT_U_IEW_PLUGIN_URL.'images/';
         {
             $tab_head_arr['wt-debug']=esc_html__('Debug', 'users-customers-import-export-for-wp-woocommerce');
         }
-        Wt_Import_Export_For_Woo_Basic::generate_settings_tabhead($tab_head_arr);
+        Wt_Import_Export_For_Woo_User_Basic::generate_settings_tabhead($tab_head_arr);
         ?>
     </div>
     <div class="wt-iew-tab-container">

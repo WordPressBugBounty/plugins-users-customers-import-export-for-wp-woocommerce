@@ -5,10 +5,10 @@
   Description: Export and Import User/Customers details From and To your WordPress/WooCommerce.
   Author: WebToffee
   Author URI: https://www.webtoffee.com/product/wordpress-users-woocommerce-customers-import-export/
-  Version: 2.6.6
+  Version: 2.7.0
   Text Domain: users-customers-import-export-for-wp-woocommerce
   Domain Path: /languages
-  WC tested up to: 10.1.2
+  WC tested up to: 10.3
   Requires at least: 3.0.1
   Requires PHP: 5.6
   License: GPLv3
@@ -46,7 +46,7 @@ if (!defined('WT_IEW_DEBUG_BASIC_TROUBLESHOOT')) {
 
 if ( ! defined( 'WBTE_UIEW_CROSS_PROMO_BANNER_VERSION' ) ) {
     // This constant must be unique for each plugin. Update this value when updating to a new banner.
-    define ( 'WBTE_UIEW_CROSS_PROMO_BANNER_VERSION', '1.0.0' );
+    define ( 'WBTE_UIEW_CROSS_PROMO_BANNER_VERSION', '1.0.1' );
 }
 
 /**
@@ -54,7 +54,7 @@ if ( ! defined( 'WBTE_UIEW_CROSS_PROMO_BANNER_VERSION' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define('WT_U_IEW_VERSION', '2.6.6');
+define('WT_U_IEW_VERSION', '2.7.0');
 
 /**
  * The code that runs during plugin activation.
@@ -108,9 +108,9 @@ if (strpos(@ini_get('disable_functions'), 'set_time_limit') === false) {
  */
 function run_wt_import_export_for_woo_basic_user() {
 
-    if (!defined('WT_IEW_BASIC_STARTED')) {
-        define('WT_IEW_BASIC_STARTED', 1);
-        $plugin = new Wt_Import_Export_For_Woo_Basic();
+    if (!defined('WT_IEW_USER_BASIC_STARTED')) {
+        define('WT_IEW_USER_BASIC_STARTED', true);
+        $plugin = new Wt_Import_Export_For_Woo_User_Basic();
         $plugin->run();
     }
 }
@@ -188,7 +188,7 @@ include_once plugin_dir_path(__FILE__) . 'includes/class-wt-userimport-uninstall
 include_once 'user_import_export_review_request.php';
 
 // Load Common Helper Class (needed by non-apache-info)
-if ( ! class_exists( 'Wt_Import_Export_For_Woo_Basic_Common_Helper' ) ) {
+if ( ! class_exists( 'Wt_Import_Export_For_Woo_User_Basic_Common_Helper' ) ) {
     require_once plugin_dir_path( __FILE__ ) . 'helpers/class-wt-common-helper.php';
 }
 
@@ -307,7 +307,7 @@ function wt_user_imp_exp_basic_migrate_serialized_data_to_json() {
                 // Check if data is serialized
                 if (is_serialized($row['data'])) {
                     require_once plugin_dir_path(__FILE__) . 'helpers/class-wt-common-helper.php';
-                    $unserialized_data = Wt_Import_Export_For_Woo_Basic_Common_Helper::wt_unserialize_safe($row['data']);
+                    $unserialized_data = Wt_Import_Export_For_Woo_User_Basic_Common_Helper::wt_unserialize_safe($row['data']);
                     if ($unserialized_data !== false) {
                         $json_data = wp_json_encode($unserialized_data);
                         // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching

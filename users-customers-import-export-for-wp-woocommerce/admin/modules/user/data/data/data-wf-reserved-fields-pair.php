@@ -38,7 +38,7 @@ $columns['last_update'] = array('title'=>'last_update','description'=>'');
 $columns['is_guest_user'] = array('title'=>'is_guest_user','description'=>'');
 
 
-if( is_plugin_active( 'woocommerce/woocommerce.php' ) ):
+if ( class_exists( 'WooCommerce' ) ):
     $columns['orders'] = array('title'=>'orders','description'=>'');    
     $columns['total_spent'] = array('title'=>'total_spent','description'=>'');    
     $columns['aov'] = array('title'=>'aov','description'=>'');	

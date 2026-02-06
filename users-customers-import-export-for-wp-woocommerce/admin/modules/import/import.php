@@ -10,8 +10,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-if(!class_exists('Wt_Import_Export_For_Woo_Basic_Import')){
-class Wt_Import_Export_For_Woo_Basic_Import
+if(!class_exists('Wt_Import_Export_For_Woo_User_Basic_Import')){
+class Wt_Import_Export_For_Woo_User_Basic_Import
 {	
 	public $module_id='';
 	public static $module_id_static='';
@@ -39,9 +39,14 @@ class Wt_Import_Export_For_Woo_Basic_Import
         public $step_need_validation_filter=array();   
 		public $allowed_mime_types = array();
 
+	/**
+	 * Post types handled by this plugin.
+	 */
+	private static $handled_post_types = array('user');
+
 	public function __construct()
 	{
-		$this->module_id=Wt_Import_Export_For_Woo_Basic::get_module_id($this->module_base);
+		$this->module_id=Wt_Import_Export_For_Woo_User_Basic::get_module_id($this->module_base);
 		self::$module_id_static=$this->module_id;
 
 		$this->max_import_file_size= (int)wp_max_upload_size()/1000000; //in MB
@@ -105,8 +110,8 @@ class Wt_Import_Export_For_Woo_Basic_Import
 
 	public function get_defaults()
 	{	
-		$this->default_import_method= Wt_Import_Export_For_Woo_Basic_Common_Helper::get_advanced_settings('default_import_method');
-		$this->default_batch_count=Wt_Import_Export_For_Woo_Basic_Common_Helper::get_advanced_settings('default_import_batch');
+		$this->default_import_method= Wt_Import_Export_For_Woo_User_Basic_Common_Helper::get_advanced_settings('default_import_method');
+		$this->default_batch_count=Wt_Import_Export_For_Woo_User_Basic_Common_Helper::get_advanced_settings('default_import_batch');
 	}
 
 	/**
@@ -339,7 +344,7 @@ class Wt_Import_Export_For_Woo_Basic_Import
 		if($rerun_id>0)
 		{
 			/* check the history module is available */
-			$history_module_obj=Wt_Import_Export_For_Woo_Basic::load_modules('history');
+			$history_module_obj=Wt_Import_Export_For_Woo_User_Basic::load_modules('history');
 			if(!is_null($history_module_obj))
 			{
 				/* check the history entry is for import and also has form_data */
@@ -374,7 +379,7 @@ class Wt_Import_Export_For_Woo_Basic_Import
 
 	protected function enqueue_assets()
 	{
-            if(Wt_Import_Export_For_Woo_Basic_Common_Helper::wt_is_screen_allowed()){
+            if(Wt_Import_Export_For_Woo_User_Basic_Common_Helper::wt_is_screen_allowed()){
 		/* adding dropzone JS */
 		wp_enqueue_script(WT_IEW_PLUGIN_ID_BASIC.'-dropzone', WT_U_IEW_PLUGIN_URL.'admin/js/dropzone.min.js', array('jquery'), WT_U_IEW_VERSION, true);
 
@@ -385,10 +390,10 @@ class Wt_Import_Export_For_Woo_Basic_Import
 		wp_enqueue_style(WT_IEW_PLUGIN_ID_BASIC.'-jquery-ui', WT_U_IEW_PLUGIN_URL.'admin/css/jquery-ui.css', array(), WT_U_IEW_VERSION, 'all');
 
                 /* check the history module is available */
-                $history_module_obj=Wt_Import_Export_For_Woo_Basic::load_modules('history');
+                $history_module_obj=Wt_Import_Export_For_Woo_User_Basic::load_modules('history');
                 if(!is_null($history_module_obj))
                 {
-                    wp_enqueue_script(Wt_Import_Export_For_Woo_Basic::get_module_id('history'),WT_U_IEW_PLUGIN_URL.'admin/modules/history/assets/js/main.js', array('jquery'), WT_U_IEW_VERSION, false);
+                    wp_enqueue_script(Wt_Import_Export_For_Woo_User_Basic::get_module_id('history'),WT_U_IEW_PLUGIN_URL.'admin/modules/history/assets/js/main.js', array('jquery'), WT_U_IEW_VERSION, false);
                 }
                 
 		$file_extensions=array_keys($this->allowed_import_file_type_mime);
@@ -405,7 +410,7 @@ class Wt_Import_Export_For_Woo_Basic_Import
 			'temp_import_file'=>$this->temp_import_file,
 			'allowed_import_file_type_mime'=>$file_extensions,
 			'max_import_file_size'=>$this->max_import_file_size,
-                        'wt_iew_prefix'=>Wt_Import_Export_For_Woo_Admin_Basic::$wt_iew_prefix,
+                        'wt_iew_prefix'=>Wt_Import_Export_For_Woo_User_Admin_Basic::$wt_iew_prefix,
 			'msgs'=>array(
 				'choosed_template'=>__('Choosed template: ', 'users-customers-import-export-for-wp-woocommerce'),
 				'choose_import_method'=>__('Please select an import method.', 'users-customers-import-export-for-wp-woocommerce'),
@@ -481,7 +486,7 @@ class Wt_Import_Export_For_Woo_Basic_Import
 		{
 			include_once(ABSPATH.'wp-admin/includes/plugin.php');
 		}
-		if(is_plugin_active('woocommerce/woocommerce.php'))
+		if ( class_exists( 'WooCommerce' ) )
 		{ 
 			wp_enqueue_script('wc-enhanced-select');
 			wp_enqueue_style('woocommerce_admin_styles', WC()->plugin_url().'/assets/css/admin.css', array(), WC()->version, 'all');
@@ -604,7 +609,7 @@ class Wt_Import_Export_For_Woo_Basic_Import
 			
 			if(is_array($out) && isset($out['response']) && $out['response']) { /* a form validation hook for remote modules */
 			
-				$remote_adapter=Wt_Import_Export_For_Woo_Basic::get_remote_adapters('import', $file_from);
+				$remote_adapter=Wt_Import_Export_For_Woo_User_Basic::get_remote_adapters('import', $file_from);
 				
 				if(is_null($remote_adapter)) { /* adapter object not found */
 					// translators: %s is the file adapter class.
@@ -1061,7 +1066,7 @@ class Wt_Import_Export_For_Woo_Basic_Import
 		/**
 		*	Writing import log to file
 		*/
-		if(!empty($import_response) && is_array($import_response) && Wt_Import_Export_For_Woo_Basic_Common_Helper::get_advanced_settings('enable_import_log')==1)
+		if(!empty($import_response) && is_array($import_response) && Wt_Import_Export_For_Woo_User_Basic_Common_Helper::get_advanced_settings('enable_import_log')==1)
 		{
 			$log_writer=new Wt_Import_Export_For_Woo_Basic_Logwriter();
 			$log_file_name=$this->get_log_file_name($import_id);
@@ -1156,7 +1161,7 @@ class Wt_Import_Export_For_Woo_Basic_Import
 		if($is_last_offset)
 		{
 			$msg.='<span class="wt_iew_info_box_finished_text" style="display:block">';
-			if(Wt_Import_Export_For_Woo_Admin_Basic::module_exists('history'))
+			if(Wt_Import_Export_For_Woo_User_Admin_Basic::module_exists('history'))
 			{
 				$msg.='<a class="button button-secondary wt_iew_view_log_btn" style="margin-top:10px;" data-history-id="'. $data['history_id'] .'" onclick="wt_iew_basic_import.hide_import_info_box();">'.__('View Details', 'users-customers-import-export-for-wp-woocommerce').'</a></span>';
 			}
@@ -1169,6 +1174,15 @@ class Wt_Import_Export_For_Woo_Basic_Import
 	*/
 	public function ajax_main()
 	{
+		if ( ! $this->to_import ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verification done using the Wt_Iew_Sh::check_write_access() method above.
+			$this->to_import=(isset($_POST['to_import']) ? sanitize_text_field(wp_unslash($_POST['to_import'])) : '');	
+		}
+
+		if ( $this->to_import && ! in_array( $this->to_import, self::$handled_post_types ) ) {
+			return;
+		}
+
 		include_once plugin_dir_path(__FILE__).'classes/class-import-ajax.php';
 		if(Wt_Iew_Sh::check_write_access(WT_IEW_PLUGIN_ID_BASIC)) // Nonce and role check
 		{
@@ -1186,7 +1200,7 @@ class Wt_Import_Export_For_Woo_Basic_Import
 			
 			$this->get_steps();
 
-			$ajax_obj=new Wt_Import_Export_For_Woo_Basic_Import_Ajax($this, $this->to_import, $this->steps, $this->import_method, $this->selected_template, $this->rerun_id);
+			$ajax_obj=new Wt_Import_Export_For_Woo_User_Basic_Import_Ajax($this, $this->to_import, $this->steps, $this->import_method, $this->selected_template, $this->rerun_id);
 			
 			// phpcs:disable WordPress.Security.NonceVerification.Missing, WordPress.Security.NonceVerification.Recommended -- Nonce already verified in the Wt_Iew_Sh::check_write_access() method
 			$import_action=isset($_POST['import_action']) ? sanitize_text_field(wp_unslash($_POST['import_action'])) : '';
@@ -1344,7 +1358,7 @@ class Wt_Import_Export_For_Woo_Basic_Import
 				$data_key=trim($value[1]);
 
 				/* Check for date formatting */
-				$data_key_arr=explode(Wt_Import_Export_For_Woo_Admin_Basic::$wt_iew_prefix."@", $data_key);
+				$data_key_arr=explode(Wt_Import_Export_For_Woo_User_Admin_Basic::$wt_iew_prefix."@", $data_key);
 				$data_format='';
 				if(count($data_key_arr)==2) /* date format field given while on import */
 				{
@@ -1401,4 +1415,4 @@ class Wt_Import_Export_For_Woo_Basic_Import
 	}
 }
 }
-Wt_Import_Export_For_Woo_Basic::$loaded_modules['import']=new Wt_Import_Export_For_Woo_Basic_Import();
+Wt_Import_Export_For_Woo_User_Basic::$loaded_modules['import']=new Wt_Import_Export_For_Woo_User_Basic_Import();

@@ -77,7 +77,7 @@ if (!defined('ABSPATH')) {
 			// Skip hidden_meta section if there are no hidden meta keys
             if ($mapping_enabled_field_key === 'hidden_meta') {
                 // Check if there are actually hidden meta keys
-                $user_module = new Wt_Import_Export_For_Woo_basic_User();
+                $user_module = new Wt_Import_Export_For_Woo_User_Basic_User();
                 if (!$user_module->has_hidden_meta_keys()) {
                     continue;
                 }

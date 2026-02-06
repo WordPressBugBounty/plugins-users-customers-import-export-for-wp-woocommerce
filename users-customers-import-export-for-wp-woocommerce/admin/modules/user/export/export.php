@@ -4,8 +4,8 @@ if (!defined('WPINC')) {
     exit;
 }
 
-if(!class_exists('Wt_Import_Export_For_Woo_basic_User_Export')){
-class Wt_Import_Export_For_Woo_basic_User_Export {
+if(!class_exists('Wt_Import_Export_For_Woo_User_Basic_User_Export')){
+class Wt_Import_Export_For_Woo_User_Basic_User_Export {
 
     public $parent_module = null;
 	
@@ -38,7 +38,7 @@ class Wt_Import_Export_For_Woo_basic_User_Export {
 		
         $export_limit = !empty($form_data['filter_form_data']['wt_iew_limit']) ? intval($form_data['filter_form_data']['wt_iew_limit']) : 999999999; //user limit
         $current_offset = !empty($form_data['filter_form_data']['wt_iew_offset']) ? intval($form_data['filter_form_data']['wt_iew_offset']) : 0; //user offset
-        $batch_count = !empty($form_data['advanced_form_data']['wt_iew_batch_count']) ? $form_data['advanced_form_data']['wt_iew_batch_count'] : Wt_Import_Export_For_Woo_Basic_Common_Helper::get_advanced_settings('default_export_batch');
+        $batch_count = !empty($form_data['advanced_form_data']['wt_iew_batch_count']) ? $form_data['advanced_form_data']['wt_iew_batch_count'] : Wt_Import_Export_For_Woo_User_Basic_Common_Helper::get_advanced_settings('default_export_batch');
         
 
         $real_offset = ($current_offset + $batch_offset);
