@@ -4,7 +4,7 @@ Tags: import customers, export customers, import users from csv, export users to
 Requires at least: 3.0.1
 Tested up to: 6.9
 Requires PHP: 5.6
-Stable tag: 2.7.0
+Stable tag: 2.7.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -28,8 +28,8 @@ You can import or export user/customer data using CSV files. This helps effortle
 &#128312; **Export Guest Users** - Include data of WooCommerce guest customers (users who bought products from the site without creating an account)
 &#128312; **Export Specific Users** - Search by username or email while exporting with auto-suggestions of email addresses and names in user export data fields for quick filtering.
 
-&#9989; Tested OK with WordPress 6.9
-&#9989; Tested OK with WooCommerce 10.4.3
+&#9989; Tested OK with WordPress 6.9.1
+&#9989; Tested OK with WooCommerce 10.5.1
 &#9989; Tested OK with PHP 8.3
 
 == How Does Wordpress User Import Export Plugin Work? ==
@@ -217,15 +217,17 @@ Please refer the article on how to <a href="https://www.webtoffee.com/refresh-wo
 12. WordPress user import export log
 
 
-= 2.7.0 2026-1-26 =
-* [Compatibility] – Tested OK with WooCommerce 10.4.3
-* [Update] - Updated translation template (POT file)
+= 2.7.1 2026-2-16 =
+* [Compatibility] - Tested OK with WordPress 6.9.1
+* [Compatibility] – Tested OK with WooCommerce 10.5.1
+* [Improvement] - Enhancements to the import mapping screen.
+* [Fix] - Resolved an issue where the banner reappeared after dismissal on page reload.
 
 [See changelog for all versions](https://plugins.svn.wordpress.org/users-customers-import-export-for-wp-woocommerce/trunk/changelog.txt)
 
 == Upgrade Notice ==
 
-= 2.7.0 =
-* [Compatibility] – Tested OK with WooCommerce 10.4.3
-* [Update] - Updated translation template (POT file)
-
+= 2.7.1 =
+* [Compatibility] - Tested OK with WordPress 6.9.1
+* [Compatibility] – Tested OK with WooCommerce 10.5.1
+* [Improvement] - Enhancements to the import mapping screen.
