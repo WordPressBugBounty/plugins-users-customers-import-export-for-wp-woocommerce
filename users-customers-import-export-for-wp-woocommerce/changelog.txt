@@ -1,6 +1,11 @@
 
 == Changelog ==
 
+= 2.7.3 2026-05-06 =
+* [Compatibility] - Tested OK with WordPress 6.9.4
+* [Compatibility] – Tested OK with WooCommerce 10.7.0
+* [Improvement] – Performance enhancements.
+
 = 2.7.2 2026-03-10 =
 * [Compatibility] – Tested OK with WooCommerce 10.5.3
 * [Improvement] - Replaced underscores in import/export file names with hyphens.
