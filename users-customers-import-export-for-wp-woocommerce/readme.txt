@@ -2,9 +2,9 @@
 Contributors: webtoffee
 Tags: import customers, export customers, import users from csv, export users to csv, import export
 Requires at least: 3.0.1
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 5.6
-Stable tag: 2.7.3
+Stable tag: 2.7.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -28,7 +28,7 @@ You can import or export user/customer data using CSV files. This helps effortle
 &#128312; **Export Guest Users** - Include data of WooCommerce guest customers (users who bought products from the site without creating an account)
 &#128312; **Export Specific Users** - Search by username or email while exporting with auto-suggestions of email addresses and names in user export data fields for quick filtering.
 
-&#9989; Tested OK with WordPress 6.9.4
+&#9989; Tested OK with WordPress 7.0
 &#9989; Tested OK with WooCommerce 10.7.0
 &#9989; Tested OK with PHP 8.3
 
@@ -222,16 +222,12 @@ Please refer the article on how to <a href="https://www.webtoffee.com/refresh-wo
 
 == Changelog ==
 
-= 2.7.3 2026-05-06 =
-* [Compatibility] - Tested OK with WordPress 6.9.4
-* [Compatibility] – Tested OK with WooCommerce 10.7.0
-* [Improvement] – Performance enhancements.
+= 2.7.4 2026-05-26 =
+* [Compatibility] - Tested OK with WordPress 7.0
 
 [See changelog for all versions](https://plugins.svn.wordpress.org/users-customers-import-export-for-wp-woocommerce/trunk/changelog.txt)
 
 == Upgrade Notice ==
 
-= 2.7.3 =
-* [Compatibility] - Tested OK with WordPress 6.9.4
-* [Compatibility] – Tested OK with WooCommerce 10.7.0
-* [Improvement] – Performance enhancements.
+= 2.7.4 =
+* [Compatibility] - Tested OK with WordPress 7.0
