@@ -5,8 +5,7 @@ if (!defined('ABSPATH')) {
 ?>
 <div class="wt-iew-plugin-toolbar bottom">
 	<div style="float:left; padding-top:10px;" class="wt_iew_import_template_name"> </div>
-	<div style="float:right;">
-		<div style="float:right;">
+	<div class="wt_iew_step_footer_actions" style="float:right;">
 	        <?php
 			$button_types = array_column(array_values($this->step_btns), 'type');
 			$last_button_key = array_search('button', array_reverse($button_types, true));
@@ -61,13 +60,12 @@ if (!defined('ABSPATH')) {
 	        	elseif($btnv['type']=='text')
 	        	{
 	        	?>
-	        		<span style="line-height:40px; font-weight:bold;" class="<?php echo esc_attr($css_class); ?>"><?php echo wp_kses_post($btnv['text']);?></span>
+	        		<span class="wt_iew_step_footer_or <?php echo esc_attr($css_class); ?>"><?php echo wp_kses_post($btnv['text']);?></span>
 	        	<?php
 	        	}
 				$count++;
 	        }
 	        ?>
-		</div>
 	</div>
 	<span class="spinner" style="margin-top:11px;"></span>
 </div>

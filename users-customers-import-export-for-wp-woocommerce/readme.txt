@@ -2,9 +2,9 @@
 Contributors: webtoffee
 Tags: import customers, export customers, import users from csv, export users to csv, import export
 Requires at least: 3.0.1
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 5.6
-Stable tag: 2.7.4
+Stable tag: 2.7.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -28,8 +28,8 @@ You can import or export user/customer data using CSV files. This helps effortle
 &#128312; **Export Guest Users** - Include data of WooCommerce guest customers (users who bought products from the site without creating an account)
 &#128312; **Export Specific Users** - Search by username or email while exporting with auto-suggestions of email addresses and names in user export data fields for quick filtering.
 
-&#9989; Tested OK with WordPress 7.0
-&#9989; Tested OK with WooCommerce 10.7.0
+&#9989; Tested OK with WordPress 7.1
+&#9989; Tested OK with WooCommerce 11.0.1
 &#9989; Tested OK with PHP 8.3
 
 == How Does Wordpress User Import Export Plugin Work? ==
@@ -128,16 +128,6 @@ To import WordPress users and import WooCommerce customers data to your website:
 This plugin connects to [feedback.webtoffee.com](https://feedback.webtoffee.com) for collecting feedback when the plugin is deactivated. 
 See our [Privacy Policy](https://www.webtoffee.com/privacy-policy/) and [Terms & Conditions](https://www.webtoffee.com/terms-conditions/) for details on data collection and usage.
 
-### ☂️ RELATED PLUGINS FROM WEBTOFFEE###
-
-Other useful plugins from WebToffee for migrating WooCommerce/WordPress data:
-
-&#128312; <a href="https://wordpress.org/plugins/product-import-export-for-woo/">WooCommerce Product Import Export Plugin</a>: Easily import and export products to/from your WooCommerce store using a CSV file.
-&#128312; <a href="https://wordpress.org/plugins/order-import-export-for-woocommerce/">Order/Coupon Import-Export for WooCommerce</a>: Import and export orders and/or coupons from your WooCommerce store using CSV with the plugin. 
-&#128312; <a href="https://wordpress.org/plugins/wp-migration-duplicator/">WordPress Backup & Migration</a>: Quickly migrate and backup entire WordPress site or selected files from one location to another. Backup to FTP, Google drive, Amazon S3, or local storage and easily restore them back.
-&#128312; <a href="https://wordpress.org/plugins/webtoffee-product-feed/">WebToffee WooCommerce Product Feed & Sync Manager</a>: Generate WooCommerce product feed for Google and Facebook shops and sync WooCommerce products with Facebook catalog.
-&#128312; <a href="https://www.webtoffee.com/product/gdpr-cookie-consent/?utm_source=free_plugin_readme&utm_medium=user_import_export&utm_campaign=GDPR">GDPR Cookie Consent</a>: This plugin helps websites comply with GDPR, CCPA, and other privacy regulations by displaying a customizable cookie consent banner. Manage cookie categories, log consents, and implement prior consent for cookies.
-
 == Installation ==
 
 = Minimum Requirements =
@@ -222,12 +212,18 @@ Please refer the article on how to <a href="https://www.webtoffee.com/refresh-wo
 
 == Changelog ==
 
-= 2.7.4 2026-05-26 =
-* [Compatibility] - Tested OK with WordPress 7.0
+= 2.7.5 2026-08-18 =
+* [Compatibility] - Tested OK with WordPress 7.1
+* [Compatibility] – Tested OK with WooCommerce 11.0.1
+* [Update] - Translation updates
+* [Fix] - Fixed export fatal on PHP 8+ when "wc_last_active" or "last_update" meta was a date string.
 
 [See changelog for all versions](https://plugins.svn.wordpress.org/users-customers-import-export-for-wp-woocommerce/trunk/changelog.txt)
 
 == Upgrade Notice ==
 
-= 2.7.4 =
-* [Compatibility] - Tested OK with WordPress 7.0
+= 2.7.5 =
+* [Compatibility] - Tested OK with WordPress 7.1
+* [Compatibility] – Tested OK with WooCommerce 11.0.1
+* [Update] - Translation updates
+* [Fix] - Fixed export fatal on PHP 8+ when "wc_last_active" or "last_update" meta was a date string.

@@ -80,7 +80,7 @@ class Wt_Import_Export_For_Woo_User_Basic {
 		if ( defined( 'WT_U_IEW_VERSION' ) ) {
 			$this->version = WT_U_IEW_VERSION;
 		} else {
-			$this->version = '2.7.4';
+			$this->version = '2.7.5';
 		}
 		$this->plugin_name = 'wt-import-export-for-woo-basic';
 
@@ -159,9 +159,9 @@ class Wt_Import_Export_For_Woo_User_Basic {
 		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/banner/class-wt-bfcm-twenty-twenty-five.php';
 
 		/**
-		 * Includes the EMA banner for analytics page
+		 * Includes the Smart Coupons CTA banner for the Analytics Revenue page
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/banner/class-wbte-ema-banner.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/banner/class-wbte-smart-coupons-analytics-banner.php';
 	
 		/**
 		 * Includes cross promotion banner main class file.

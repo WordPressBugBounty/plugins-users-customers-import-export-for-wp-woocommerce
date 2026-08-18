@@ -35,6 +35,12 @@ class Wt_Import_Export_For_Woo_i18n_Basic {
 	 */
 	public function load_plugin_textdomain() {
 
+		load_plugin_textdomain(
+			'users-customers-import-export-for-wp-woocommerce',
+			false,
+			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
+		);
+
 	}
 
 

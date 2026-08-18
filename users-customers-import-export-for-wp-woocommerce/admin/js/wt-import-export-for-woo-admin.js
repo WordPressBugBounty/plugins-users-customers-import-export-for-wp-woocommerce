@@ -2,8 +2,16 @@
 	'use strict';
 
 	$(function() {
-	 	
+
 	 	$(".wt-iew-tips").tipTip({'attribute': 'data-wt-iew-tip'});
+
+		$(document).on('input', 'input[name="wt_iew_batch_count"], input[name="wt_iew_default_import_batch"], input[name="wt_iew_default_export_batch"]', function() {
+			var sanitizedValue = $(this).val().replace(/[^\d]/g, '');
+			if ($(this).val() !== sanitizedValue) {
+				$(this).val(sanitizedValue);
+			}
+		});
+
 
 	 	/* tab view */
 	 	var wf_tab_view=
@@ -296,6 +304,7 @@ wt_iew_popup={
 
 var wt_field_group=
 {
+	_click_bound:false,
 	Set:function()
 	{
 		//jQuery('.wt_iew_field_group_children').hide();
@@ -309,7 +318,17 @@ var wt_field_group=
 				group_content_dv.show();
 			}
 		});
-		jQuery('.wt_iew_field_group_hd').click(function(){
+
+		/* Remove legacy direct click handlers that may stack from repeated Set() calls. */
+		jQuery('.wt_iew_field_group_hd').off('click');
+
+		if(this._click_bound)
+		{
+			return;
+		}
+		this._click_bound=true;
+
+		jQuery(document).on('click.wtIewFieldGroup', '.wt_iew_field_group_hd', function(){
 
 			var toggle_btn=jQuery(this).find('.wt_iew_field_group_toggle_btn');
 			var visibility=toggle_btn.attr('data-visibility');

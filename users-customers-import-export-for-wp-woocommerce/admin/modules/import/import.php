@@ -159,7 +159,7 @@ class Wt_Import_Export_For_Woo_User_Basic_Import
 			'field_name'=>'default_import_batch',
 			'help_text'=>__('Provide the default number of records to be imported in a batch.', 'users-customers-import-export-for-wp-woocommerce'),
 			'validation_rule'=>array('type'=>'absint'),
-			'attr' => array('min' => 1, 'max' => 50),
+			'attr' => array('min' => 1, 'max' => 50, 'step' => 1),
 		);
 
 		return $fields;
@@ -175,11 +175,12 @@ class Wt_Import_Export_For_Woo_User_Basic_Import
 
 			'batch_count'=>array(
 				'label'=>__("Import in batches of", 'users-customers-import-export-for-wp-woocommerce'),
-				'type'=>'text',
+				'type'=>'number',
 				'value'=>$this->default_batch_count,
 				'field_name'=>'batch_count',
 				'help_text'=>__('The number of records that the server will process for every iteration within the configured timeout interval. If the import fails due to timeout you can lower this number accordingly and try again.', 'users-customers-import-export-for-wp-woocommerce'),
 				'validation_rule'=>array('type'=>'absint'),
+				'attr' => array('min' => 1, 'step' => 1),
 			)
 		);
 
@@ -247,11 +248,14 @@ class Wt_Import_Export_For_Woo_User_Basic_Import
 		/* taking import_method fields from other modules */
 		$method_import_screen_fields=apply_filters('wt_iew_importer_alter_method_import_fields_basic', $method_import_screen_fields, $this->to_import, $method_import_form_data);
 
+		$delimiter_form_values = Wt_Iew_IE_Basic_Helper::_get_delimiter_form_values( $method_import_form_data );
+		$delimiter_preset      = $delimiter_form_values['preset'];
+		$delimiter_default     = $delimiter_form_values['delimiter'];
 
 		$method_import_screen_fields['delimiter']=array(
 			'label'=>__("Delimiter", 'users-customers-import-export-for-wp-woocommerce'),
 			'type'=>'select',
-			'value'=>",",
+			'value'=>$delimiter_preset,
 			'css_class'=>"wt_iew_delimiter_preset",
 			'tr_id'=>'delimiter_tr',
 			'tr_class'=>$file_from_field_arr['tr_class'], //add tr class from parent.Because we need to toggle the tr when parent tr toggles.
@@ -259,7 +263,7 @@ class Wt_Import_Export_For_Woo_User_Basic_Import
 			'sele_vals'=>Wt_Iew_IE_Basic_Helper::_get_csv_delimiters(),
 			'help_text'=>__('The character used to separate columns in the CSV file. Takes comma (,) by default.', 'users-customers-import-export-for-wp-woocommerce'),
 			'validation_rule'=>array('type'=>'skip'),
-                        'after_form_field'=>'<input type="text" class="wt_iew_custom_delimiter" name="wt_iew_delimiter" value="'.(!empty($method_import_form_data['wt_iew_delimiter']) ? $method_import_form_data['wt_iew_delimiter'] : ",").'" />',
+                        'after_form_field'=>'<input type="text" class="wt_iew_custom_delimiter" name="wt_iew_delimiter" value="'.esc_attr( $delimiter_default ).'" />',
 
 		);
 

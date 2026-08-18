@@ -1,6 +1,12 @@
 
 == Changelog ==
 
+= 2.7.5 2026-08-18 =
+* [Compatibility] - Tested OK with WordPress 7.1
+* [Compatibility] – Tested OK with WooCommerce 11.0.1
+* [Update] - Translation updates.
+* [Fix] - Fixed export fatal on PHP 8+ when "wc_last_active" or "last_update" meta was a date string.
+
 = 2.7.4 2026-05-26 =
 * [Compatibility] - Tested OK with WordPress 7.0
 

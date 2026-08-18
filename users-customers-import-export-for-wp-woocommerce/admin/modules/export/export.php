@@ -159,7 +159,7 @@ if (!class_exists('Wt_Import_Export_For_Woo_User_Basic_Export')) {
 				'field_name' => 'default_export_batch',
 				'help_text' => __('Provide the default count for the records to be exported in a batch.', 'users-customers-import-export-for-wp-woocommerce'),
 				'validation_rule' => array('type' => 'absint'),
-				'attr' => array('min' => 1, 'max' => 200),
+				'attr' => array('min' => 1, 'max' => 200, 'step' => 1),
 			);
 			return $fields;
 		}
@@ -332,7 +332,9 @@ if (!class_exists('Wt_Import_Export_For_Woo_User_Basic_Export')) {
 				}
 			}
 
-			$delimiter_default = isset($advanced_form_data['wt_iew_delimiter']) ? $advanced_form_data['wt_iew_delimiter'] : ",";
+			$delimiter_form_values = Wt_Iew_IE_Basic_Helper::_get_delimiter_form_values( $advanced_form_data );
+			$delimiter_preset      = $delimiter_form_values['preset'];
+			$delimiter_default     = $delimiter_form_values['delimiter'];
 			//add `is_advanced` field to group it as advanced tab section
 			$advanced_screen_fields = array(
 				'file_name' => array(
@@ -346,24 +348,25 @@ if (!class_exists('Wt_Import_Export_For_Woo_User_Basic_Export')) {
 				),
 				'batch_count' => array(
 					'label' => __("Export in batches of", 'users-customers-import-export-for-wp-woocommerce'),
-					'type' => 'text',
+					'type' => 'number',
 					'merge_right' => true,
 					'value' => $this->default_batch_count,
 					'field_name' => 'batch_count',
 					'help_text' => __('The number of records that the server will process for every iteration within the configured timeout interval. If the export fails due to timeout you can lower this number accordingly and try again', 'users-customers-import-export-for-wp-woocommerce'),
 					'validation_rule' => array('type' => 'absint'),
+					'attr' => array('min' => 1, 'step' => 1),
 				),
 				'delimiter' => array(
 					'label' => __('Delimiter', 'users-customers-import-export-for-wp-woocommerce'),
 					'type' => 'select',
-					'value' => ",",
+					'value' => $delimiter_preset,
 					'css_class' => "wt_iew_delimiter_preset",
 					'tr_id' => 'delimiter_tr',
 					'field_name' => 'delimiter_preset',
 					'sele_vals' => Wt_Iew_IE_Basic_Helper::_get_csv_delimiters(),
 					'help_text' => __('Separator for differentiating the columns in the CSV file. Assumes ‘,’ by default.', 'users-customers-import-export-for-wp-woocommerce'),
 					'validation_rule' => array('type' => 'skip'),
-					'after_form_field' => '<input type="text" class="wt_iew_custom_delimiter" name="wt_iew_delimiter" value="' . $delimiter_default . '" maxlength = "1" />',
+					'after_form_field' => '<input type="text" class="wt_iew_custom_delimiter" name="wt_iew_delimiter" value="' . esc_attr( $delimiter_default ) . '" maxlength = "1" />',
 				)
 			);
 

@@ -528,27 +528,27 @@ class Wt_Import_Export_For_Woo_User_Basic_User_Export {
                 $customer_data[$key] = (!empty($user->{$key})) ? $user->{$key} : 0;
                 continue;
             }
-            if( $key == 'last_update'){
-                $date_in_timestamp = (!empty($user->{$key})) ? $user->{$key} : 0;
-                if($date_in_timestamp == 0){
-                    $customer_data[$key] = '';
-                }
-                elseif(strtotime($date_in_timestamp) == false){
-                    $customer_data[$key] = gmdate('Y-m-d H:i:s', $date_in_timestamp);
-                }else{
-                    $customer_data[$key] = $date_in_timestamp ? gmdate( 'Y-m-d', $date_in_timestamp ) : $date_in_timestamp;
+            if ( $key == 'last_update' ) {
+                $date_in_timestamp = ( ! empty( $user->{$key} ) ) ? $user->{$key} : 0;
+                if ( empty( $date_in_timestamp ) || 0 == $date_in_timestamp ) {
+                    $customer_data[ $key ] = '';
+                } elseif ( is_numeric( $date_in_timestamp ) ) {
+                    $customer_data[ $key ] = gmdate( 'Y-m-d H:i:s', (int) $date_in_timestamp );
+                } else {
+                    $parsed = strtotime( $date_in_timestamp );
+                    $customer_data[ $key ] = ( false !== $parsed ) ? gmdate( 'Y-m-d H:i:s', $parsed ) : '';
                 }
                 continue;
             }
-            if($key == 'wc_last_active'){
-                $date_in_timestamp = (!empty($user->{$key})) ? $user->{$key} : 0;
-                if($date_in_timestamp == 0){
-                    $customer_data[$key] = '';
-                }
-                elseif(strtotime($date_in_timestamp) ==false){
-                    $customer_data[$key] = gmdate('Y-m-d', $date_in_timestamp);
-                }else{
-                    $customer_data[$key] = $date_in_timestamp ? gmdate( 'Y-m-d', $date_in_timestamp ) : $date_in_timestamp;
+            if ( $key == 'wc_last_active' ) {
+                $date_in_timestamp = ( ! empty( $user->{$key} ) ) ? $user->{$key} : 0;
+                if ( empty( $date_in_timestamp ) || 0 == $date_in_timestamp ) {
+                    $customer_data[ $key ] = '';
+                } elseif ( is_numeric( $date_in_timestamp ) ) {
+                    $customer_data[ $key ] = gmdate( 'Y-m-d', (int) $date_in_timestamp );
+                } else {
+                    $parsed = strtotime( $date_in_timestamp );
+                    $customer_data[ $key ] = ( false !== $parsed ) ? gmdate( 'Y-m-d', $parsed ) : '';
                 }
                 continue;
             }
