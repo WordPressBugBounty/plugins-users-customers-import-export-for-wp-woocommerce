@@ -471,6 +471,27 @@ class Wt_Import_Export_For_Woo_User_Basic_User_Import {
 
                 $new_roles = array_map('trim', explode(',', $new_roles_str));
                 $new_roles = array_intersect($new_roles, array_keys($roles));
+
+                /**
+                 * Filters whether only administrators may create new users with the `administrator` role during CSV import.
+                 *
+                 * When true (default), if the current importer is not an administrator, the `administrator` role is
+                 * silently stripped from any new user being created via import. This prevents a non-administrator
+                 * importer from using the user import workflow to escalate privileges by creating admin accounts.
+                 *
+                 * Mirrors `wt_ier_update_admin_only_by_admin_user` which governs the user-update path.
+                 *
+                 * @param bool $enforce Whether to enforce the administrator-only create guard. Default true.
+                 */
+                $only_create_admin_with_admin = apply_filters( 'wt_ier_create_admin_only_by_admin_user', true );
+                if ( $only_create_admin_with_admin && in_array( 'administrator', $new_roles, true ) ) {
+                    $current_user_obj = $this->get_current_user_object();
+                    $current_roles = $current_user_obj ? $current_user_obj->roles : array();
+                    if ( ! in_array( 'administrator', $current_roles, true ) ) {
+                        $new_roles = array_diff( $new_roles, array( 'administrator' ) );
+                    }
+                }
+
                 $roles_to_remove = array();
                 $user_roles = array_intersect(array_values($wp_user_object->roles), array_keys($roles));
                 if (!$new_roles) {
@@ -637,7 +658,8 @@ class Wt_Import_Export_For_Woo_User_Basic_User_Import {
             $is_wordpress_password = false;
 
             // 2.6.4 - Hashed password with $wp$ prefix will also be considered as WordPress password.
-            if ( strlen( $data['user_details']['user_pass'] ) === 34 && 0 === strpos( $data['user_details']['user_pass'], '$P$B' ) || 0 === strpos( $data['user_details']['user_pass'], '$wp$' ) ) {
+            $user_pass = isset( $data['user_details']['user_pass'] ) ? $data['user_details']['user_pass'] : '';
+            if ( ( 34 === strlen( $user_pass ) && 0 === strpos( $user_pass, '$P$B' ) ) || 0 === strpos( $user_pass, '$wp$' ) ) {
                 $is_wordpress_password = true;
             }
 

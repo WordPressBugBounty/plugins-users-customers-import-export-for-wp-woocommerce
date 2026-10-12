@@ -5,19 +5,31 @@
   Description: Export and Import User/Customers details From and To your WordPress/WooCommerce.
   Author: WebToffee
   Author URI: https://www.webtoffee.com/product/wordpress-users-woocommerce-customers-import-export/
-  Version: 2.7.5
+  Version: 2.7.6
   Text Domain: users-customers-import-export-for-wp-woocommerce
   Domain Path: /languages
-  WC tested up to: 11.0.1
+  WC tested up to: 11.2.1
   Requires at least: 3.0.1
-  Requires PHP: 5.6
+  Requires PHP: 7.4
   License: GPLv3
   License URI: https://www.gnu.org/licenses/gpl-3.0.html
  */
 
 
 
-if (!defined('ABSPATH') || !is_admin()) {
+if (!defined('ABSPATH')) {
+    return;
+}
+
+// HPOS compatibility declaration — must register in all request contexts
+// (frontend/REST/cron/CLI), so it runs before the admin-only early return below.
+add_action( 'before_woocommerce_init', function() {
+	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+	}
+} );
+
+if (!is_admin()) {
     return;
 }
 
@@ -54,7 +66,7 @@ if ( ! defined( 'WBTE_UIEW_CROSS_PROMO_BANNER_VERSION' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define('WT_U_IEW_VERSION', '2.7.5');
+define('WT_U_IEW_VERSION', '2.7.6');
 
 /**
  * The code that runs during plugin activation.
@@ -265,13 +277,6 @@ if (!function_exists('wt_pro_upgrad_link')) {
 	}
 
 }
-
-// HPOS compatibility decleration
-add_action( 'before_woocommerce_init', function() {
-	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
-		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
-	}
-} );
 
 /**
  * Convert serialized data to JSON in database tables

@@ -3,8 +3,8 @@ Contributors: webtoffee
 Tags: import customers, export customers, import users from csv, export users to csv, import export
 Requires at least: 3.0.1
 Tested up to: 7.1
-Requires PHP: 5.6
-Stable tag: 2.7.5
+Requires PHP: 7.4
+Stable tag: 2.7.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -29,7 +29,7 @@ You can import or export user/customer data using CSV files. This helps effortle
 &#128312; **Export Specific Users** - Search by username or email while exporting with auto-suggestions of email addresses and names in user export data fields for quick filtering.
 
 &#9989; Tested OK with WordPress 7.1
-&#9989; Tested OK with WooCommerce 11.0.1
+&#9989; Tested OK with WooCommerce 11.2.1
 &#9989; Tested OK with PHP 8.3
 
 == How Does Wordpress User Import Export Plugin Work? ==
@@ -132,7 +132,7 @@ See our [Privacy Policy](https://www.webtoffee.com/privacy-policy/) and [Terms &
 
 = Minimum Requirements =
 
-- PHP Version: 5.6 or later
+- PHP Version: 7.4 or later
 - WordPress version: 3.0 or later
 - WooCommerce version: 3.0 or later
 
@@ -212,18 +212,22 @@ Please refer the article on how to <a href="https://www.webtoffee.com/refresh-wo
 
 == Changelog ==
 
-= 2.7.5 2026-08-18 =
-* [Compatibility] - Tested OK with WordPress 7.1
-* [Compatibility] – Tested OK with WooCommerce 11.0.1
-* [Update] - Translation updates
-* [Fix] - Fixed export fatal on PHP 8+ when "wc_last_active" or "last_update" meta was a date string.
+= 2.7.6 2026-10-12 =
+* [Compatibility] – Tested OK with WordPress 7.1.3
+* [Compatibility] – Tested OK with WooCommerce 11.2.1
+* [Fix] - Security: hardened CSV export to prevent row injection on re-import that could lead to privilege escalation via crafted biographical info. Reported via Wordfence.
+* [Fix] - HPOS compatibility was not declared on non-admin requests, causing WooCommerce to flag the plugin as incompatible with High-Performance Order Storage.
+* [Improvement] - Security: randomized auto-generated export filenames with a 12-character token to prevent URL guessing.
+* [Update] - Bumped minimum PHP requirement to 7.4.
 
 [See changelog for all versions](https://plugins.svn.wordpress.org/users-customers-import-export-for-wp-woocommerce/trunk/changelog.txt)
 
 == Upgrade Notice ==
 
-= 2.7.5 =
-* [Compatibility] - Tested OK with WordPress 7.1
-* [Compatibility] – Tested OK with WooCommerce 11.0.1
-* [Update] - Translation updates
-* [Fix] - Fixed export fatal on PHP 8+ when "wc_last_active" or "last_update" meta was a date string.
+= 2.7.6 =
+* [Compatibility] – Tested OK with WordPress 7.1.3
+* [Compatibility] – Tested OK with WooCommerce 11.2.1
+* [Fix] - Security: hardened CSV export to prevent row injection on re-import that could lead to privilege escalation via crafted biographical info. Reported via Wordfence.
+* [Fix] - HPOS compatibility was not declared on non-admin requests, causing WooCommerce to flag the plugin as incompatible with High-Performance Order Storage.
+* [Improvement] - Security: randomized auto-generated export filenames with a 12-character token to prevent URL guessing.
+* [Update] - Bumped minimum PHP requirement to 7.4.
