@@ -4,7 +4,7 @@ Tags: import customers, export customers, import users from csv, export users to
 Requires at least: 3.0.1
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.7.6
+Stable tag: 2.7.7
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -212,22 +212,12 @@ Please refer the article on how to <a href="https://www.webtoffee.com/refresh-wo
 
 == Changelog ==
 
-= 2.7.6 2026-10-12 =
-* [Compatibility] – Tested OK with WordPress 7.1.3
-* [Compatibility] – Tested OK with WooCommerce 11.2.1
-* [Fix] - Security: hardened CSV export to prevent row injection on re-import that could lead to privilege escalation via crafted biographical info. Reported via Wordfence.
-* [Fix] - HPOS compatibility was not declared on non-admin requests, causing WooCommerce to flag the plugin as incompatible with High-Performance Order Storage.
-* [Improvement] - Security: randomized auto-generated export filenames with a 12-character token to prevent URL guessing.
-* [Update] - Bumped minimum PHP requirement to 7.4.
+= 2.7.7 2026-10-26 =
+* [Improvement] - Security: hardened CSV URL import to block requests to private/internal network addresses.
 
 [See changelog for all versions](https://plugins.svn.wordpress.org/users-customers-import-export-for-wp-woocommerce/trunk/changelog.txt)
 
 == Upgrade Notice ==
 
-= 2.7.6 =
-* [Compatibility] – Tested OK with WordPress 7.1.3
-* [Compatibility] – Tested OK with WooCommerce 11.2.1
-* [Fix] - Security: hardened CSV export to prevent row injection on re-import that could lead to privilege escalation via crafted biographical info. Reported via Wordfence.
-* [Fix] - HPOS compatibility was not declared on non-admin requests, causing WooCommerce to flag the plugin as incompatible with High-Performance Order Storage.
-* [Improvement] - Security: randomized auto-generated export filenames with a 12-character token to prevent URL guessing.
-* [Update] - Bumped minimum PHP requirement to 7.4.
+= 2.7.7 =
+* [Improvement] - Security: hardened CSV URL import to block requests to private/internal network addresses.

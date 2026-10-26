@@ -672,8 +672,10 @@ if (!class_exists('Wt_Import_Export_For_Woo_User_Admin_Basic')) {
 				'order_import_export_review_request',
 				'user_import_export_review_request',
 				'woocommerce',
-				'wt_bfcm_twenty_twenty_five', // Preserve BFCM 2025 banner
-				'wbte_iew_history_banner', // History tab IES cross-promotion banner .
+				'wt_bfcm_twenty_twenty_five', // Preserve BFCM 2025 banner.
+				'wt_bfcm_twenty_twenty_six', // Preserve BFCM 2026 banner (pre-namespace, kept as safety net).
+				'wt_iew_bfcm_twenty_twenty_six', // Preserve BFCM 2026 banner (IE-namespaced class).
+				'wbte_iew_history_banner', // History tab IES cross-promotion banner.
 			);
 
 			foreach ( $notices_types as $type ) {
@@ -740,15 +742,19 @@ if (!class_exists('Wt_Import_Export_For_Woo_User_Admin_Basic')) {
 		 *  @return array            Array of screen ids.
 		 */
 		public function wt_bfcm_banner_screens( $screen_ids ) {
-			
+
 			$screen_ids[] = 'toplevel_page_wt_import_export_for_woo_basic_export';
-			
+
 			$screen_ids[] = 'webtoffee-import-export-basic_page_wt_import_export_for_woo_basic_import';
-			
+
 			$screen_ids[] = 'webtoffee-import-export-basic_page_wt_iew_scheduled_job';
-			
+
 			$screen_ids[] = 'webtoffee-import-export-basic_page_wt_import_export_for_woo_basic';
-					
+
+			$screen_ids[] = 'webtoffee-import-export-basic_page_wt_import_export_for_woo_basic_history';
+
+			$screen_ids[] = 'webtoffee-import-export-basic_page_wt_import_export_for_woo_basic_history_log';
+
 			return $screen_ids;
 		}
 	}

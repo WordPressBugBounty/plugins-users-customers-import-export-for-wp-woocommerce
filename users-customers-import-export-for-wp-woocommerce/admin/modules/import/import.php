@@ -673,7 +673,14 @@ class Wt_Import_Export_For_Woo_User_Basic_Import
 		    'stream'      => false,
 		    'filename'    => null
 		);
-		return wp_remote_get($target_url, $def_args);
+		if ( method_exists( 'Wt_Iew_Sh', 'safe_remote_get' ) ) {
+			return Wt_Iew_Sh::safe_remote_get( $target_url, $def_args );
+		}
+
+		// Fallback when an older sibling plugin loaded Wt_Iew_Sh first and shadowed the fixed class.
+		$def_args['sslverify']          = true;
+		$def_args['reject_unsafe_urls'] = true;
+		return wp_safe_remote_get( $target_url, $def_args );
 	}
 
 	public function get_log_file_name($history_id)
